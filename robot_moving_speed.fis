@@ -1,0 +1,47 @@
+[System]
+Name='robot_moving_speed'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=9
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='mom'
+
+[Input1]
+Name='ball_distance'
+Range=[0 9]
+NumMFs=3
+MF1='very_near':'trapmf',[0 0 0.25 0.5]
+MF2='near':'trimf',[0 0.5 1]
+MF3='far':'trapmf',[0.5 1 9 9]
+
+[Input2]
+Name='ball_velocity'
+Range=[0 10]
+NumMFs=3
+MF1='slow':'trapmf',[0 0 0.5 1.5]
+MF2='medium':'trimf',[0.5 1.5 2.5]
+MF3='very_fast':'trapmf',[1.5 2.5 10 10]
+
+[Output1]
+Name='moving_speed'
+Range=[0 10]
+NumMFs=3
+MF1='stay':'trapmf',[0 0 0.5 1.5]
+MF2='walk':'trimf',[1 2 3]
+MF3='run':'trapmf',[1.5 4 10 10]
+
+[Rules]
+1 1, 1 (1) : 1
+1 2, 2 (1) : 1
+1 3, 2 (1) : 1
+2 1, 2 (1) : 1
+2 2, 2 (1) : 1
+2 3, 3 (1) : 1
+3 1, 3 (1) : 1
+3 2, 3 (1) : 1
+3 3, 3 (1) : 1

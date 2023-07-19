@@ -1,0 +1,47 @@
+[System]
+Name='direction_fuzzy'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=9
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='mom'
+
+[Input1]
+Name='Left_Sensor'
+Range=[0 1.1]
+NumMFs=3
+MF1='Not_Close':'trapmf',[0.66 0.88 1.1 1.1]
+MF2='Close':'trimf',[0.275 0.55 0.825]
+MF3='Very_Close':'trapmf',[0 0 0.22 0.44]
+
+[Input2]
+Name='Right_Sensor'
+Range=[0 1.1]
+NumMFs=3
+MF1='Not_Close':'trapmf',[0.66 0.88 1.1 1.1]
+MF2='Close':'trimf',[0.275 0.55 0.825]
+MF3='Very_Close':'trapmf',[0 0 0.22 0.44]
+
+[Output1]
+Name='direction'
+Range=[-90 90]
+NumMFs=3
+MF1='turn_left':'trapmf',[-90 -90 -30 -7.5]
+MF2='straight':'trimf',[-15 0 15]
+MF3='turn_right':'trapmf',[7.5 30 90 90]
+
+[Rules]
+1 1, 3 (1) : 1
+1 2, 3 (1) : 1
+1 3, 3 (1) : 1
+2 1, 2 (1) : 1
+2 2, 1 (1) : 1
+2 3, 3 (1) : 1
+3 1, 1 (1) : 1
+3 2, 1 (1) : 1
+3 3, 1 (1) : 1
